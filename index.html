@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XI TKJ 2 — SMK Telkom Malang</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --red-primary: #E30613;
+            --red-hover: #B5000B;
+            --red-light: rgba(227, 6, 19, 0.08);
+            --red-glow: rgba(227, 6, 19, 0.25);
+            
+            --bg-main: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --bg-dark: #0F172A;
+
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --text-white: #FFFFFF;
+
+            --border-color: #E2E8F0;
+            --font-family: 'Poppins', 'Inter', Arial, sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-family: var(--font-family); }
+        body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+        .text-red { color: var(--red-primary); }
+        .text-center { text-align: center; }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color); padding: 14px 0; transition: var(--transition);
+        }
+        .nav-container { max-width: 1140px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-box { background: var(--red-primary); color: white; font-weight: 800; font-size: 0.85rem; padding: 5px 10px; border-radius: 6px; }
+        .logo-text { font-weight: 700; font-size: 0.95rem; color: var(--text-main); }
+        .nav-menu { display: flex; gap: 6px; }
+        .nav-link { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.88rem; padding: 8px 16px; border-radius: 20px; transition: var(--transition); }
+        .nav-link:hover, .nav-link.active { color: var(--red-primary); background: var(--red-light); }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .digital-clock { font-size: 0.82rem; font-weight: 700; background: #E2E8F0; color: var(--text-main); padding: 6px 12px; border-radius: 20px; font-family: monospace; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 24px; height: 2px; background: var(--text-main); border-radius: 2px; }
+
+        /* HERO */
+        .hero { position: relative; padding: 140px 0 80px; min-height: 90vh; display: flex; align-items: center; overflow: hidden; }
+        .geo-shape { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; pointer-events: none; }
+        .shape-1 { width: 300px; height: 300px; background: rgba(227, 6, 19, 0.15); top: 10%; left: -50px; }
+        .shape-2 { width: 350px; height: 350px; background: rgba(227, 6, 19, 0.1); bottom: 5%; right: -80px; }
+        .shape-3 { width: 200px; height: 200px; background: rgba(100, 116, 139, 0.1); top: 40%; left: 45%; }
+        .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .badge-tech { display: inline-flex; align-items: center; gap: 8px; background: var(--red-light); color: var(--red-primary); font-size: 0.8rem; font-weight: 700; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; border: 1px solid rgba(227, 6, 19, 0.2); }
+        .badge-tech .dot { width: 8px; height: 8px; background: var(--red-primary); border-radius: 50%; }
+        .hero-title { font-size: 2.8rem; font-weight: 800; line-height: 1.15; margin-bottom: 12px; }
+        .hero-slogan { font-size: 1.1rem; color: var(--text-muted); font-style: italic; margin-bottom: 28px; font-weight: 500; }
+        .hero-actions { display: flex; gap: 14px; }
+        .btn { display: inline-block; padding: 12px 26px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: var(--transition); border: none; cursor: pointer; }
+        .btn-primary { background: var(--red-primary); color: white; box-shadow: 0 6px 18px var(--red-glow); }
+        .btn-primary:hover { background: var(--red-hover); transform: translateY(-2px); }
+        .btn-secondary { background: white; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--red-primary); color: var(--red-primary); transform: translateY(-2px); }
+        .main-image-wrapper { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 32px rgba(0,0,0,0.08); border: 2px solid white; background: white; transition: var(--transition); }
+        .main-image-wrapper:hover { transform: scale(1.02); box-shadow: 0 20px 40px var(--red-glow); }
+        .hero-img { width: 100%; height: 380px; object-fit: cover; display: block; }
+        .image-badge { position: absolute; bottom: 16px; left: 16px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+
+        /* SECTIONS */
+        .section { padding: 80px 0; }
+        .sub-badge { font-size: 0.75rem; font-weight: 800; color: var(--red-primary); letter-spacing: 2px; display: block; margin-bottom: 4px; }
+        .section-title h2 { font-size: 2rem; font-weight: 800; }
+        .title-line { width: 50px; height: 4px; background: var(--red-primary); margin: 12px auto 40px; border-radius: 2px; }
+
+        /* TENTANG */
+        .about-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 24px; text-align: center; }
+        .about-text { font-size: 1.05rem; line-height: 1.8; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; display: flex; align-items: center; gap: 16px; transition: var(--transition); }
+        .stat-card:hover { border-color: var(--red-primary); transform: translateY(-4px); }
+        .stat-icon { font-size: 1.8rem; background: var(--red-light); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+        .stat-info h3 { font-size: 1.3rem; font-weight: 800; }
+        .stat-info p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+        /* STRUKTUR */
+        .structure-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+        .struct-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; text-align: center; transition: var(--transition); }
+        .struct-card:hover { border-color: var(--red-primary); transform: translateY(-4px); }
+        .struct-card.main-role { grid-column: 1 / -1; max-width: 360px; margin: 0 auto; width: 100%; background: linear-gradient(180deg, #FFFFFF 0%, #FFF5F5 100%); }
+        .role-badge { display: inline-block; background: var(--red-light); color: var(--red-primary); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+        .avatar-box { font-size: 2rem; margin-bottom: 10px; }
+        .person-name { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px; display: block; }
+
+        /* JADWAL & ABSENSI TABLE */
+        .table-wrapper { overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; }
+        .schedule-table, .absensi-table { width: 100%; border-collapse: collapse; min-width: 750px; text-align: left; }
+        .schedule-table th, .absensi-table th { background: #F1F5F9; padding: 14px 14px; font-size: 0.85rem; font-weight: 700; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        .schedule-table td, .absensi-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-color); font-size: 0.82rem; vertical-align: top; }
+        .jam-col { font-weight: 700; color: var(--red-primary); white-space: nowrap; background: #FAFBFD; width: 120px; }
+        .subject-box { display: flex; flex-direction: column; gap: 2px; }
+        .subject-title { font-weight: 700; color: var(--text-main); line-height: 1.3; }
+        .teacher-name { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+        .break-row td { background: var(--red-light); color: var(--red-primary); font-weight: 700; text-align: center; font-size: 0.8rem; }
+        .table-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; text-align: right; font-style: italic; }
+
+        /* PIKET */
+        .piket-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .piket-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; transition: var(--transition); }
+        .piket-card:hover { border-color: var(--red-primary); transform: translateY(-4px); }
+        .piket-head { display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--red-light); padding-bottom: 10px; margin-bottom: 14px; }
+        .piket-head h3 { font-size: 1rem; font-weight: 800; }
+        .piket-members { list-style: none; }
+        .piket-members li { font-size: 0.85rem; padding: 6px 0; border-bottom: 1px dashed var(--border-color); }
+
+        /* ABSENSI STATS */
+        .absensi-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center; }
+        .stat-box .num { display: block; font-size: 1.4rem; font-weight: 800; line-height: 1; }
+        .stat-box .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+        .box-total .num { color: var(--text-main); }
+        .box-hadir .num { color: #16A34A; }
+        .box-izin .num { color: #D97706; }
+        .box-sakit .num { color: #0284C7; }
+        .box-alpa .num { color: #DC2626; }
+
+        .absensi-tools { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+        .search-field { position: relative; flex: 1; max-width: 360px; }
+        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; }
+        .search-field input { width: 100%; padding: 10px 12px 10px 36px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.88rem; outline: none; }
+        .search-field input:focus { border-color: var(--red-primary); box-shadow: 0 0 0 3px var(--red-glow); }
+        .btn-reset { background: white; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+        .btn-reset:hover { border-color: var(--red-primary); color: var(--red-primary); }
+
+        .status-select { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+        .status-select.val-hadir { border-color: #16A34A; color: #16A34A; background: #F0FDF4; }
+        .status-select.val-izin { border-color: #D97706; color: #D97706; background: #FFFBEB; }
+        .status-select.val-sakit { border-color: #0284C7; color: #0284C7; background: #F0F9FF; }
+        .status-select.val-alpa { border-color: #DC2626; color: #DC2626; background: #FEF2F2; }
+
+        /* GALERI */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+        .gallery-item { border-radius: 14px; overflow: hidden; height: 220px; background: var(--bg-card); border: 1px solid var(--border-color); position: relative; }
+        .gallery-item.main-photo { grid-column: span 2; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.7); color: white; padding: 8px 12px; font-size: 0.8rem; font-weight: 600; }
+        .gallery-item.placeholder { border: 2px dashed var(--border-color); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+        .gallery-item.placeholder:hover { border-color: var(--red-primary); background: var(--red-light); transform: translateY(-3px); }
+        .ph-box { text-align: center; color: var(--text-muted); pointer-events: none; }
+        .ph-icon { font-size: 2.2rem; color: var(--red-primary); display: block; line-height: 1; margin-bottom: 6px; font-weight: 300; }
+        .ph-box p { font-size: 0.85rem; font-weight: 600; }
+
+        /* EDITABLE HIGHLIGHT MODE */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed var(--red-primary) !important;
+            background: rgba(227, 6, 19, 0.05) !important;
+            border-radius: 4px;
+            padding: 2px 4px;
+            cursor: text;
+        }
+
+        /* FLOATING EDIT BUTTON */
+        .edit-toggle-btn {
+            position: fixed; bottom: 74px; right: 24px;
+            background: #0F172A; color: white; border: none;
+            padding: 10px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 700;
+            cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+            z-index: 999; display: flex; align-items: center; gap: 8px; transition: var(--transition);
+        }
+        .edit-toggle-btn.active { background: var(--red-primary); box-shadow: 0 6px 18px var(--red-glow); }
+
+        /* FOOTER & BACK TO TOP */
+        .footer { background: var(--bg-dark); color: white; padding: 40px 0; border-top: 3px solid var(--red-primary); margin-top: 60px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .footer-info h3 { font-size: 1.1rem; font-weight: 800; }
+        .footer-info p { font-size: 0.8rem; color: #94A3B8; }
+        .footer-copy { text-align: right; font-size: 0.8rem; color: #94A3B8; }
+
+        .back-to-top {
+            position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+            background: var(--red-primary); color: white; border: none; border-radius: 50%;
+            font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 12px var(--red-glow);
+            opacity: 0; visibility: hidden; transition: var(--transition); z-index: 900;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+
+        /* ANIMATION */
+        .reveal-up, .reveal-left, .reveal-right { opacity: 0; transition: all 0.6s ease-out; }
+        .reveal-up { transform: translateY(30px); }
+        .reveal-left { transform: translateX(-30px); }
+        .reveal-right { transform: translateX(30px); }
+        .reveal-active { opacity: 1; transform: translate(0, 0); }
+
+        @media (max-width: 868px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-actions { justify-content: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .absensi-stats { grid-template-columns: repeat(3, 1fr); }
+            .gallery-item.main-photo { grid-column: span 1; }
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed; top: 60px; left: -100%; width: 80%; height: calc(100vh - 60px);
+                background: white; flex-direction: column; padding: 24px; transition: var(--transition);
+            }
+            .nav-menu.active { left: 0; }
+            .digital-clock { display: none; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-copy { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-box">TKJ 2</span>
+                <span class="logo-text">SMK Telkom Malang</span>
+            </a>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#tentang" class="nav-link">Tentang</a>
+                <a href="#struktur" class="nav-link">Struktur</a>
+                <a href="#jadwal" class="nav-link">Jadwal</a>
+                <a href="#piket" class="nav-link">Piket</a>
+                <a href="#absensi" class="nav-link">Absensi</a>
+                <a href="#galeri" class="nav-link">Galeri</a>
+            </div>
+
+            <div class="nav-right">
+                <div class="digital-clock" id="digital-clock">00:00:00 WIB</div>
+                <div class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / HOME -->
+    <section class="hero" id="home">
+        <div class="geo-shape shape-1"></div>
+        <div class="geo-shape shape-2"></div>
+        <div class="geo-shape shape-3"></div>
+
+        <div class="container hero-container">
+            <div class="hero-text reveal-left">
+                <div class="badge-tech"><span class="dot"></span> Technical Computer & Network</div>
+                <h1 class="hero-title">XI TKJ 2 <br><span class="text-red">SMK Telkom Malang</span></h1>
+                <p class="hero-slogan">"Together We Learn, Together We Grow"</p>
+                <div class="hero-actions">
+                    <a href="#tentang" class="btn btn-primary">Lihat Kelas</a>
+                    <a href="#jadwal" class="btn btn-secondary">Lihat Jadwal</a>
+                </div>
+            </div>
+
+            <div class="hero-media reveal-right">
+                <div class="main-image-wrapper">
+                    <img src="images/foto-kelas.jpg" alt="Foto Kelas XI TKJ 2" class="hero-img" id="hero-img" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80'">
+                    <div class="image-badge"><span>Moklet 32 • XI TKJ 2</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TENTANG KELAS -->
+    <section class="section section-about" id="tentang">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">PROFIL</span>
+                <h2>Tentang <span class="text-red">XI TKJ 2</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="about-card reveal-up">
+                <p class="about-text">
+                    XI TKJ 2 merupakan salah satu kelas di SMK Telkom Malang yang berfokus pada bidang Teknik Komputer dan Jaringan. Website ini menjadi media informasi kelas yang berisi struktur kelas, jadwal pelajaran, jadwal piket, absensi, dan dokumentasi kegiatan.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card reveal-up"><div class="stat-icon">👥</div><div class="stat-info"><h3 id="stat-total-siswa">33</h3><p>Siswa</p></div></div>
+                <div class="stat-card reveal-up"><div class="stat-icon">🏫</div><div class="stat-info"><h3>1</h3><p>Kelas</p></div></div>
+                <div class="stat-card reveal-up"><div class="stat-icon">💻</div><div class="stat-info"><h3>TKJ</h3><p>Jurusan</p></div></div>
+                <div class="stat-card reveal-up"><div class="stat-icon">📅</div><div class="stat-info"><h3>2026</h3><p>Tahun Ajaran</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STRUKTUR KELAS (BISA DI-EDIT NAMANYA) -->
+    <section class="section section-structure" id="struktur">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">ORGANISASI</span>
+                <h2>Struktur <span class="text-red">Kelas</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="structure-grid">
+                <div class="struct-card main-role reveal-up">
+                    <div class="role-badge">Wali Kelas</div>
+                    <div class="avatar-box">👨‍🏫</div>
+                    <h4 class="editable-name" data-id="struct-walikelas">Klik untuk isi nama</h4>
+                </div>
+                <div class="struct-card reveal-up"><div class="role-badge">Ketua Kelas</div><div class="avatar-box">👑</div><h4 class="editable-name" data-id="struct-ketua">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Wakil Ketua</div><div class="avatar-box">🎓</div><h4 class="editable-name" data-id="struct-wakil">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Bendahara 1</div><div class="avatar-box">💰</div><h4 class="editable-name" data-id="struct-bendahara1">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Bendahara 2</div><div class="avatar-box">💵</div><h4 class="editable-name" data-id="struct-bendahara2">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sekretaris 1</div><div class="avatar-box">📝</div><h4 class="editable-name" data-id="struct-sekretaris1">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sekretaris 2</div><div class="avatar-box">📑</div><h4 class="editable-name" data-id="struct-sekretaris2">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sie Kebersihan</div><div class="avatar-box">🧹</div><h4 class="editable-name" data-id="struct-kebersihan">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sie Perlengkapan</div><div class="avatar-box">📦</div><h4 class="editable-name" data-id="struct-perlengkapan">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sie Keamanan</div><div class="avatar-box">🛡️</div><h4 class="editable-name" data-id="struct-keamanan">Klik untuk isi nama</h4></div>
+                <div class="struct-card reveal-up"><div class="role-badge">Sie Dokumentasi</div><div class="avatar-box">📷</div><h4 class="editable-name" data-id="struct-dokumentasi">Klik untuk isi nama</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JADWAL PELAJARAN (XIT2 - NAMA GURU BISA DIEDIT) -->
+    <section class="section section-schedule" id="jadwal">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">AKADEMIK</span>
+                <h2>Jadwal <span class="text-red">Pelajaran XI T2</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="table-wrapper reveal-up">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Waktu / Jam</th>
+                            <th>Senin</th>
+                            <th>Selasa</th>
+                            <th>Rabu</th>
+                            <th>Kamis</th>
+                            <th>Jumat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="jam-col">06.30 - 07.15</td>
+                            <td><div class="subject-box"><span class="subject-title">Upacara</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Doa / Dhuha</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Doa / Dhuha</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Doa / Dhuha</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Giat Jumat Pagi</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">07.15 - 07.45</td>
+                            <td><div class="subject-box"><span class="subject-title">Doa / Dhuha</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Koding & AI</span><span class="teacher-name editable-name" data-id="j-sel-1">Yaniko Dimas Y.P.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Bahasa Inggris</span><span class="teacher-name editable-name" data-id="j-rab-1">Ardhian Suseno</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-kam-1">Adi Nurrachman</span></div></td>
+                            <td class="jam-col" style="background:#FFF5F5; font-weight:normal;"><div class="subject-box"><span class="subject-title" style="color:var(--red-primary);">Istirahat (07.15-07.30)</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">07.45 - 08.30</td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-sen-1">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Koding & AI</span><span class="teacher-name editable-name" data-id="j-sel-2">Yaniko Dimas Y.P.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Bahasa Inggris</span><span class="teacher-name editable-name" data-id="j-rab-2">Ardhian Suseno</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-kam-2">Adi Nurrachman</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">TKJ (07.30-08.15)</span><span class="teacher-name editable-name" data-id="j-jum-1">Roselina Febriati</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">08.30 - 09.15</td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-sen-2">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Pendidikan Pancasila</span><span class="teacher-name editable-name" data-id="j-sel-3">Ria Cahya Kurnia R.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Bahasa Inggris</span><span class="teacher-name editable-name" data-id="j-rab-3">Ardhian Suseno</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Sejarah</span><span class="teacher-name editable-name" data-id="j-kam-3">Ana Wahyuning S.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">TKJ (08.15-09.00)</span><span class="teacher-name editable-name" data-id="j-jum-2">Roselina Febriati</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">09.15 - 10.00</td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-sen-3">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Pendidikan Pancasila</span><span class="teacher-name editable-name" data-id="j-sel-4">Ria Cahya Kurnia R.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-rab-4">Adi Nurrachman</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Matematika</span><span class="teacher-name editable-name" data-id="j-kam-4">Guru MTK Baru</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">B. Jawa (09.00-09.45)</span><span class="teacher-name editable-name" data-id="j-jum-3">Rahardiyan A.</span></div></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="jam-col">10.00 - 10.30</td>
+                            <td colspan="4">ISTIRAHAT (10.00 - 10.30 WIB)</td>
+                            <td><div class="subject-box"><span class="subject-title">PJOK (09.45-10.30)</span><span class="teacher-name editable-name" data-id="j-jum-4">Siana Norma Heny</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">10.30 - 11.15</td>
+                            <td><div class="subject-box"><span class="subject-title">Mapel Pilihan: RPL</span><span class="teacher-name editable-name" data-id="j-sen-4">Lyra Hertin</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Tahfidz XI</span><span class="teacher-name editable-name" data-id="j-sel-5">Guru Tahfidz 10</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Bahasa Indonesia</span><span class="teacher-name editable-name" data-id="j-rab-5">Muhammad Fajrul F.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Tahfidz XI</span><span class="teacher-name editable-name" data-id="j-kam-5">Guru Tahfidz 10</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">PJOK (10.30-11.15)</span><span class="teacher-name editable-name" data-id="j-jum-5">Siana Norma Heny</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">11.15 - 12.00</td>
+                            <td><div class="subject-box"><span class="subject-title">Mapel Pilihan: RPL</span><span class="teacher-name editable-name" data-id="j-sen-5">Lyra Hertin</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Tahfidz XI</span><span class="teacher-name editable-name" data-id="j-sel-6">Guru Tahfidz 10</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">English Discovery</span><span class="teacher-name editable-name" data-id="j-rab-6">Agung Bagus W.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Tahfidz XI</span><span class="teacher-name editable-name" data-id="j-kam-6">Guru Tahfidz 10</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Doa / Dhuha (11.15-11.45)</span></div></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="jam-col">12.00 - 13.00</td>
+                            <td colspan="4">DHUHUR (12.00 - 13.00 WIB)</td>
+                            <td>DHUHUR (11.45-13.00 WIB)</td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">13.00 - 13.45</td>
+                            <td><div class="subject-box"><span class="subject-title">Matematika</span><span class="teacher-name editable-name" data-id="j-sen-6">Guru MTK Baru</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-sel-7">Adi Nurrachman</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-rab-7">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">English Discovery</span><span class="teacher-name editable-name" data-id="j-kam-7">Agung Bagus W.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">BK / Softskills</span><span class="teacher-name editable-name" data-id="j-jum-6">Kheren Carollina P.</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">13.45 - 14.30</td>
+                            <td><div class="subject-box"><span class="subject-title">Matematika</span><span class="teacher-name editable-name" data-id="j-sen-7">Guru MTK Baru</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">PKWU</span><span class="teacher-name editable-name" data-id="j-sel-8">Firman Hadi Amrullah Z.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-rab-8">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">PAI & Budi Pekerti</span><span class="teacher-name editable-name" data-id="j-kam-8">Guru PAI Baru</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Numerasi</span><span class="teacher-name editable-name" data-id="j-jum-7">Tulus Andrianto</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="jam-col">14.30 - 15.15</td>
+                            <td><div class="subject-box"><span class="subject-title">Pendampingan CA</span><span class="teacher-name editable-name" data-id="j-sen-8">Career Advisor</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">PKWU</span><span class="teacher-name editable-name" data-id="j-sel-9">Firman Hadi Amrullah Z.</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Teknik Komputer & Jaringan</span><span class="teacher-name editable-name" data-id="j-rab-9">Roselina Febriati</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">PAI & Budi Pekerti</span><span class="teacher-name editable-name" data-id="j-kam-9">Guru PAI Baru</span></div></td>
+                            <td><div class="subject-box"><span class="subject-title">Bahasa Indonesia</span><span class="teacher-name editable-name" data-id="j-jum-8">Muhammad Fajrul F.</span></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-note">*Geser ke samping jika tabel terpotong di layar HP.</p>
+        </div>
+    </section>
+
+    <!-- JADWAL PIKET (BISA DIEDIT) -->
+    <section class="section section-piket" id="piket">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">KEBERSIHAN</span>
+                <h2>Jadwal <span class="text-red">Piket Kelas</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="piket-grid">
+                <div class="piket-card reveal-up">
+                    <div class="piket-head"><span class="day-icon">🧹</span><h3>SENIN</h3></div>
+                    <ul class="piket-members">
+                        <li class="editable-name" data-id="p-sen-1">Pramudya Sekar Arafah</li>
+                        <li class="editable-name" data-id="p-sen-2">Novero Wahyu Dhasilva</li>
+                        <li class="editable-name" data-id="p-sen-3">Almira Talita Zalfa</li>
+                        <li class="editable-name" data-id="p-sen-4">Muhammad Mirza Firmanda</li>
+                        <li class="editable-name" data-id="p-sen-5">Danadyaksa Kayana Syahputra</li>
+                        <li class="editable-name" data-id="p-sen-6">Muhammad Iqbal Bajideh</li>
+                    </ul>
+                </div>
+                <div class="piket-card reveal-up">
+                    <div class="piket-head"><span class="day-icon">✨</span><h3>SELASA</h3></div>
+                    <ul class="piket-members">
+                        <li class="editable-name" data-id="p-sel-1">Qiarra Noe Mahyyasah Andrian</li>
+                        <li class="editable-name" data-id="p-sel-2">Ananda Rifqi Aditya</li>
+                        <li class="editable-name" data-id="p-sel-3">Althafia Jihan Navisa</li>
+                        <li class="editable-name" data-id="p-sel-4">Muhammad Habibie Setyawan</li>
+                        <li class="editable-name" data-id="p-sel-5">Bima Nawa Ananda Dafinza</li>
+                        <li class="editable-name" data-id="p-sel-6">Nindy Syara Herfanni</li>
+                    </ul>
+                </div>
+                <div class="piket-card reveal-up">
+                    <div class="piket-head"><span class="day-icon">🪣</span><h3>RABU</h3></div>
+                    <ul class="piket-members">
+                        <li class="editable-name" data-id="p-rab-1">Shofiyulloh Azzam</li>
+                        <li class="editable-name" data-id="p-rab-2">Pandu Pranata Putra</li>
+                        <li class="editable-name" data-id="p-rab-3">Gadis Tatya Ramadhani</li>
+                        <li class="editable-name" data-id="p-rab-4">Talitha Ardelia</li>
+                        <li class="editable-name" data-id="p-rab-5">Muhammad Adikara Maulana</li>
+                        <li class="editable-name" data-id="p-rab-6">Muhammad Nur Affan Rezky</li>
+                    </ul>
+                </div>
+                <div class="piket-card reveal-up">
+                    <div class="piket-head"><span class="day-icon">🗑️</span><h3>KAMIS</h3></div>
+                    <ul class="piket-members">
+                        <li class="editable-name" data-id="p-kam-1">Argya Tri Ramadani</li>
+                        <li class="editable-name" data-id="p-kam-2">Alfian Rizqie Suryahadinata</li>
+                        <li class="editable-name" data-id="p-kam-3">Raffi Javas Nararya</li>
+                        <li class="editable-name" data-id="p-kam-4">Nobel Muhammad Kaisar Al Fikri</li>
+                        <li class="editable-name" data-id="p-kam-5">Raya Hayundha Luhung</li>
+                        <li class="editable-name" data-id="p-kam-6">Aditya Kurniawan Arifin</li>
+                        <li class="editable-name" data-id="p-kam-7">Tehora Renawia</li>
+                    </ul>
+                </div>
+                <div class="piket-card reveal-up">
+                    <div class="piket-head"><span class="day-icon">🧼</span><h3>JUMAT</h3></div>
+                    <ul class="piket-members">
+                        <li class="editable-name" data-id="p-jum-1">Digit Giantino Rafif</li>
+                        <li class="editable-name" data-id="p-jum-2">Muhammad Hilmi Ardiansyah</li>
+                        <li class="editable-name" data-id="p-jum-3">Reyvano Diffa Ramadhan</li>
+                        <li class="editable-name" data-id="p-jum-4">Aliring Hayyu Wening</li>
+                        <li class="editable-name" data-id="p-jum-5">Naila Urwatul Lutfi'ah</li>
+                        <li class="editable-name" data-id="p-jum-6">Aurora Yuli Kawati Agustian</li>
+                        <li class="editable-name" data-id="p-jum-7">Brelian Afisionando</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABSENSI SISWA (NAMA BISA DIEDIT) -->
+    <section class="section section-absensi" id="absensi">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">PRESENSI</span>
+                <h2>Daftar Siswa & <span class="text-red">Absensi</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="absensi-stats reveal-up">
+                <div class="stat-box box-total"><span class="num" id="count-total">33</span><span class="lbl">Total Siswa</span></div>
+                <div class="stat-box box-hadir"><span class="num" id="count-hadir">33</span><span class="lbl">Hadir</span></div>
+                <div class="stat-box box-izin"><span class="num" id="count-izin">0</span><span class="lbl">Izin</span></div>
+                <div class="stat-box box-sakit"><span class="num" id="count-sakit">0</span><span class="lbl">Sakit</span></div>
+                <div class="stat-box box-alpa"><span class="num" id="count-alpa">0</span><span class="lbl">Alpa</span></div>
+            </div>
+
+            <div class="absensi-tools reveal-up">
+                <div class="search-field">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Cari nama siswa...">
+                </div>
+                <button class="btn-reset" id="btn-reset">Reset Status</button>
+            </div>
+
+            <div class="table-wrapper reveal-up">
+                <table class="absensi-table">
+                    <thead>
+                        <tr><th style="width: 80px;">No</th><th>Nama Lengkap Siswa</th><th style="width: 220px;">Status Kehadiran</th></tr>
+                    </thead>
+                    <tbody id="absensi-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI INTERAKTIF -->
+    <section class="section section-galeri" id="galeri">
+        <div class="container">
+            <div class="section-title text-center reveal-up">
+                <span class="sub-badge">DOKUMENTASI</span>
+                <h2>Galeri <span class="text-red">Kelas</span></h2>
+                <div class="title-line"></div>
+            </div>
+
+            <input type="file" id="global-file-input" accept="image/*" style="display: none;">
+
+            <div class="gallery-grid reveal-up" id="gallery-grid">
+                <div class="gallery-item main-photo">
+                    <img src="images/foto-kelas.jpg" alt="Foto Utama XI TKJ 2" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80'">
+                    <div class="gallery-caption">Foto Utama XI TKJ 2</div>
+                </div>
+
+                <div class="gallery-item placeholder" onclick="triggerUpload(this)">
+                    <div class="ph-box"><span class="ph-icon">+</span><p>Tambahkan Foto</p></div>
+                </div>
+                <div class="gallery-item placeholder" onclick="triggerUpload(this)">
+                    <div class="ph-box"><span class="ph-icon">+</span><p>Tambahkan Foto</p></div>
+                </div>
+                <div class="gallery-item placeholder" onclick="triggerUpload(this)">
+                    <div class="ph-box"><span class="ph-icon">+</span><p>Tambahkan Foto</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>XI TKJ 2 — SMK Telkom Malang</h3>
+                <p>Teknik Komputer dan Jaringan • Moklet 32</p>
+            </div>
+            <div class="footer-copy">
+                <p>Made with ❤️ by XI TKJ 2</p>
+                <p>&copy; 2026 XI TKJ 2. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOMBOL MODE EDIT FLOATING -->
+    <button class="edit-toggle-btn" id="edit-toggle-btn">
+        ✏️ Mode Edit Nama: OFF
+    </button>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" title="Ke atas">↑</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const defaultStudents = [
+            "Aditya Kurniawan Arifin", "Alfian Rizqie Suryahadinata", "Aliring Hayyu Wening",
+            "Almira Talita Zalfa", "Althafia Jihan Navisa", "Ananda Rifqi Aditya",
+            "Argya Tri Ramadani", "Aurora Yuli Kawati Agustian", "Bima Nawa Ananda Dafinza",
+            "Brelian Afisionando", "Danadyaksa Kayana Syahputra", "Digit Giantino Rafif",
+            "Gadis Tatya Ramadhani", "Hafith Fairuz Marsha Virille", "Muhammad Adikara Maulana",
+            "Muhammad Habibie Setyawan", "Muhammad Hilmi Ardiansyah", "Muhammad Iqbal Bajideh",
+            "Muhammad Mirza Firmanda", "Muhammad Nur Affan Rezky", "Naila Urwatul Lutfi'ah",
+            "Nindy Syara Herfanni", "Nobel Muhammad Kaisar Al Fikri", "Novero Wahyu Dhasilva",
+            "Pandu Pranata Putra", "Pramudya Sekar Arafah", "Qiarra Noe Mahyyasah Andrian",
+            "Raffi Javas Nararya", "Raya Hayundha Luhung", "Reyvano Diffa Ramadhan",
+            "Shofiyulloh Azzam", "Talitha Ardelia", "Tehora Renawia"
+        ];
+
+        const ABSENSI_KEY = 'XITKJ2_ABSENSI_STORE';
+        const NAMES_STORE_KEY = 'XITKJ2_NAMES_STORE';
+        const STUDENTS_STORE_KEY = 'XITKJ2_STUDENTS_LIST';
+
+        let isEditMode = false;
+        let currentTargetBox = null;
+        let activeStudents = JSON.parse(localStorage.getItem(STUDENTS_STORE_KEY)) || defaultStudents;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initClock();
+            initAbsensi();
+            initSearch();
+            initScrollEffects();
+            initMobileNav();
+            initImageUpload();
+            initEditableNames();
+            initEditToggle();
+        });
+
+        function initClock() {
+            const clockEl = document.getElementById('digital-clock');
+            function update() {
+                const now = new Date();
+                const hrs = String(now.getHours()).padStart(2, '0');
+                const mins = String(now.getMinutes()).padStart(2, '0');
+                const secs = String(now.getSeconds()).padStart(2, '0');
+                if (clockEl) clockEl.textContent = `${hrs}:${mins}:${secs} WIB`;
+            }
+            update();
+            setInterval(update, 1000);
+        }
+
+        /* ABSENSI LOGIC */
+        function initAbsensi() {
+            const tbody = document.getElementById('absensi-tbody');
+            const resetBtn = document.getElementById('btn-reset');
+            let savedStatus = JSON.parse(localStorage.getItem(ABSENSI_KEY)) || {};
+
+            function render() {
+                tbody.innerHTML = '';
+                activeStudents.forEach((student, idx) => {
+                    const no = idx + 1;
+                    const status = savedStatus[idx] || 'Hadir';
+                    const tr = document.createElement('tr');
+
+                    tr.innerHTML = `
+                        <td><strong>${no}</strong></td>
+                        <td><span class="st-name editable-name" data-student-idx="${idx}">${student}</span></td>
+                        <td>
+                            <select class="status-select val-${status.toLowerCase()}" data-idx="${idx}">
+                                <option value="Hadir" ${status === 'Hadir' ? 'selected' : ''}>Hadir</option>
+                                <option value="Izin" ${status === 'Izin' ? 'selected' : ''}>Izin</option>
+                                <option value="Sakit" ${status === 'Sakit' ? 'selected' : ''}>Sakit</option>
+                                <option value="Alpa" ${status === 'Alpa' ? 'selected' : ''}>Alpa</option>
+                            </select>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                bindSelectEvents();
+                calculateStats();
+                applyEditableState();
+            }
+
+            function bindSelectEvents() {
+                document.querySelectorAll('.status-select').forEach(select => {
+                    select.addEventListener('change', (e) => {
+                        const idx = e.target.getAttribute('data-idx');
+                        const val = e.target.value;
+                        e.target.className = `status-select val-${val.toLowerCase()}`;
+                        savedStatus[idx] = val;
+                        localStorage.setItem(ABSENSI_KEY, JSON.stringify(savedStatus));
+                        calculateStats();
+                    });
+                });
+            }
+
+            function calculateStats() {
+                let hadir = 0, izin = 0, sakit = 0, alpa = 0;
+                activeStudents.forEach((_, idx) => {
+                    const st = savedStatus[idx] || 'Hadir';
+                    if (st === 'Hadir') hadir++;
+                    else if (st === 'Izin') izin++;
+                    else if (st === 'Sakit') sakit++;
+                    else if (st === 'Alpa') alpa++;
+                });
+
+                document.getElementById('count-total').textContent = activeStudents.length;
+                document.getElementById('stat-total-siswa').textContent = activeStudents.length;
+                document.getElementById('count-hadir').textContent = hadir;
+                document.getElementById('count-izin').textContent = izin;
+                document.getElementById('count-sakit').textContent = sakit;
+                document.getElementById('count-alpa').textContent = alpa;
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (confirm('Reset semua presensi ke status Hadir?')) {
+                        savedStatus = {};
+                        localStorage.removeItem(ABSENSI_KEY);
+                        render();
+                    }
+                });
+            }
+            render();
+        }
+
+        /* EDITABLE NAMES ENGINE */
+        function initEditableNames() {
+            const savedNames = JSON.parse(localStorage.getItem(NAMES_STORE_KEY)) || {};
+
+            // Load saved names for static elements
+            document.querySelectorAll('.editable-name[data-id]').forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (savedNames[id]) el.textContent = savedNames[id];
+
+                el.addEventListener('blur', () => {
+                    savedNames[id] = el.textContent.trim();
+                    localStorage.setItem(NAMES_STORE_KEY, JSON.stringify(savedNames));
+                });
+            });
+
+            // Event listener for dynamically rendered student names in absensi
+            document.getElementById('absensi-tbody').addEventListener('blur', (e) => {
+                if (e.target.classList.contains('editable-name') && e.target.hasAttribute('data-student-idx')) {
+                    const idx = parseInt(e.target.getAttribute('data-student-idx'));
+                    activeStudents[idx] = e.target.textContent.trim();
+                    localStorage.setItem(STUDENTS_STORE_KEY, JSON.stringify(activeStudents));
+                }
+            }, true);
+        }
+
+        function initEditToggle() {
+            const btn = document.getElementById('edit-toggle-btn');
+            btn.addEventListener('click', () => {
+                isEditMode = !isEditMode;
+                btn.classList.toggle('active', isEditMode);
+                btn.innerHTML = isEditMode ? '<b>✅ Simpan Nama</b>' : '✏️ Mode Edit Nama: OFF';
+                document.body.classList.toggle('editable-active', isEditMode);
+                applyEditableState();
+            });
+        }
+
+        function applyEditableState() {
+            document.querySelectorAll('.editable-name').forEach(el => {
+                el.contentEditable = isEditMode ? "true" : "false";
+            });
+        }
+
+        function initSearch() {
+            const input = document.getElementById('search-input');
+            if (input) {
+                input.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    document.querySelectorAll('#absensi-tbody tr').forEach(row => {
+                        const name = row.querySelector('.st-name').textContent.toLowerCase();
+                        row.style.display = name.includes(query) ? '' : 'none';
+                    });
+                });
+            }
+        }
+
+        function triggerUpload(element) {
+            currentTargetBox = element;
+            document.getElementById('global-file-input').click();
+        }
+
+        function initImageUpload() {
+            const fileInput = document.getElementById('global-file-input');
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && currentTargetBox) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        currentTargetBox.classList.remove('placeholder');
+                        currentTargetBox.removeAttribute('onclick');
+                        currentTargetBox.innerHTML = `
+                            <img src="${evt.target.result}" alt="Foto Galeri Kelas">
+                            <div class="gallery-caption">Kegiatan XI TKJ 2</div>
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function initScrollEffects() {
+            const reveals = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const backToTop = document.getElementById('backToTop');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal-active');
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(sec => {
+                    if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+                });
+
+                if (window.scrollY > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+            });
+
+            if (backToTop) {
+                backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+        }
+
+        function initMobileNav() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            if (hamburger) {
+                hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => navMenu.classList.remove('active'));
+            });
+        }
+    </script>
+</body>
+</html>
